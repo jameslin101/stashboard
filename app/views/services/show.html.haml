@@ -1,0 +1,36 @@
+%section
+  - if flash[:notice]
+    %p.notice
+    = flash[:notice]
+  - if flash[:error]
+    %p.error
+    = flash[:error]
+  %h2 
+    =@service.name
+  %h3 
+    =@service.desc
+  %p
+    %br
+    =link_to "[Add status]", new_service_status_path(@service)    
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Time
+        %th Status
+        %th Message
+        %th Edit
+        %th Delete
+    -@service.statuses.each do |t|
+      -sym = t.state
+      %tr
+        %td
+          =time_ago_in_words(t.time)    
+        %td
+          = render :partial => "symbols", :locals => {:sym => sym}
+        %td
+          =t.message
+        %td
+          =link_to "Edit", edit_service_status_path(@service,t)
+        %td
+          =button_to "Delete", service_status_path(@service,t), :method => :delete, :confirm => "Are you sure?"
+          

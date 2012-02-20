@@ -1,0 +1,73 @@
+- if flash[:notice]
+  .alert.alert-success
+    = flash[:notice]
+- if flash[:error]
+  .alert.alert-error
+    = flash[:error]
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      -t = Array.new
+      -t[0] = Time.current()
+      -for i in 1..5
+        -t[i] = t[i-1].yesterday
+      %th Service
+      %th Edit
+      %th Delete
+      %th Admin
+      %th Current
+      -for i in 1..5
+        %th 
+          =t[i].strftime("%b. %d")
+  %tbody
+    -Service.all.each do |s|
+      %tr
+        %td
+          =s.name
+        %td
+          -if signed_in? && (s.user_id == current_user.id)
+            =link_to "[edit]", service_path(s)
+        %td
+          -if signed_in? && (s.user_id == current_user.id)
+            =button_to "delete", s, :method => :delete, :confirm => "Are you sure?", :class => "btn-mini btn-danger"
+        %td
+          =User.find(s.user_id).email
+        -q = s.statuses
+        -if q.empty?
+          -for i in 1..6
+            =puts "eeeeeeee " + i.to_s
+            %td
+              ="N/A"
+        -if !q.empty?
+          -f = q.last.time
+          =puts s.name + " aaaaaaa "+ f.to_s + " " + q.last.time.to_s
+          -tt = Array.new
+          -for i in [0,1,2,3,4,5]
+            -querysym = q.where(:time => f..t[i].end_of_day).first
+            -if !querysym.nil?
+              -sym=querysym.state
+            -else
+              -sym="N/A"
+            =puts "********** " + sym + " " + t[i].to_s
+            %td
+              = render :partial => "symbols", :locals => {:sym => sym}
+.add
+  -if signed_in?
+    =link_to "[Add service]", new_service_path
+.row
+  .span5
+    .well.legend
+      %h4 
+        Status Legend
+      %ul.unstyled
+        %li
+          %img#sym(src="/assets/cross-circle.png") 
+          The service is currently down
+        %li
+          %img#sym(src="/assets/tick-circle.png") 
+          The service is up.
+        %li
+          %img#sym(src="/assets/exclamation.png") 
+          The service is experiencing intermittent problems.
+      
+

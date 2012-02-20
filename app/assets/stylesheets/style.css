@@ -1,0 +1,6 @@
+#logo { height: 40px; float: left; margin-top: 15px;}
+.title {margin-top: 15px; float: left; height: 40px; line-height: 40px;}
+.user {margin-top: 15px; float: left; height: 40px; line-height: 40px; color: white; text-align: right; }
+.add {margin-top: -20px;}
+.legend {margin-top: 20px; padding: 10px;}
+.legend h4 { color: #999; font-size: 18px; margin: 0 0 5px 0;}
