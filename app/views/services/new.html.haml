@@ -1,3 +1,13 @@
+-if @service.errors.any?
+  .alert.alert-error
+    =pluralize(@service.errors.count, "error")
+    prohibited this Service from being saved:
+    %p
+      There were problems with the following fields:
+      %ul
+        =@service.errors.full_messages.each do |msg|
+          %li
+            =msg
 =form_for(@service) do |f|
   %p 
     = f.label :name, "Name" 

@@ -15,12 +15,13 @@ class StatusesController < ApplicationController
     @status.service_id = @service.id
     if @status.save
       flash[:notice] = "New status created."
+      redirect_to service_path(@service)
     else
-      flash[:error] = "Error creating new status."
+      flash[:error] = ap(@status.errors.full_messages)
+      redirect_to new_service_status_path
     end
     puts "1111111WE ARE IN CREATE 2"
 
-    redirect_to service_path(@service)
     #redirect_to service_path(current_user.services.find(params[:service_id]).id)
     
   end

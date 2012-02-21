@@ -1,10 +1,4 @@
-- if flash[:notice]
-  .alert.alert-success
-    = flash[:notice]
-- if flash[:error]
-  .alert.alert-error
-    = flash[:error]
-%table.table.table-striped.table-bordered.table-condensed
+%table.table.table-striped.table-bordered.table-condensed.tablecenter
   %thead
     %tr
       -t = Array.new
@@ -26,10 +20,10 @@
           =s.name
         %td
           -if signed_in? && (s.user_id == current_user.id)
-            =link_to "[edit]", service_path(s)
+            =button_to "edit", service_path(s), :method => "get", :class => "btn btn-mini"
         %td
           -if signed_in? && (s.user_id == current_user.id)
-            =button_to "delete", s, :method => :delete, :confirm => "Are you sure?", :class => "btn-mini btn-danger"
+            =link_to "delete", s, {:method => :delete, :confirm => "Are you sure?", :class => "btn-danger btn-mini"}
         %td
           =User.find(s.user_id).email
         -q = s.statuses

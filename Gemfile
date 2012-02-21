@@ -25,7 +25,13 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'webrat'
   gem 'shoulda'
+  gem 'capybara'
+  gem 'capybara-firebug'
   gem 'fabrication'
   gem 'ffaker'
   gem 'factory_girl_rails', :require => false
+  gem 'database_cleaner'
+  gem 'fuubar'
+  gem 'wirble'
+  gem 'hirb'
 end

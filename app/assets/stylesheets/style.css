@@ -4,3 +4,6 @@
 .add {margin-top: -20px;}
 .legend {margin-top: 20px; padding: 10px;}
 .legend h4 { color: #999; font-size: 18px; margin: 0 0 5px 0;}
+.legend img, p {font-size:12px;vertical-align: middle;}
+.tablecenter {text-align: center;}
+.inputdatetime {width:auto}

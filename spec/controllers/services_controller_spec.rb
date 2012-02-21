@@ -20,4 +20,25 @@ describe ServicesController do
     end
   end
 
+  
+  describe "Post 'create'" do    
+
+      before(:each) do
+        @attr = {:name => "", :desc=>""}
+      end
+      
+      it "should not create a service" do
+        lambda do
+          post :create, :service => @attr
+        end.should_not change(Service, :count)
+      end
+      
+      it "should render the 'new' service page" do
+        post :create, :service => @attr
+        response.should redirect_to(new_service_path)
+      end
+    
+  end
 end
+
+

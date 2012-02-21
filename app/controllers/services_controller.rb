@@ -21,13 +21,17 @@ class ServicesController < ApplicationController
     puts params
 
     @service = Service.new(params[:service])
-    @service.user_id = current_user.id
+    if signed_in?
+      @service.user_id = current_user.id
+    end
+    
     if @service.save
       flash[:notice] = "New service created."
+      redirect_to services_path
     else
-      flash[:error] = "Error creating new service."
+      flash[:error] = ap(@service.errors.full_messages)
+      redirect_to new_service_path
     end
-    redirect_to services_path
   end
 
   def edit
