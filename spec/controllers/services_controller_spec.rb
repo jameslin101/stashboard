@@ -23,6 +23,7 @@ describe ServicesController do
   
   describe "Post 'create'" do    
 
+    describe "failure" do
       before(:each) do
         @attr = {:name => "", :desc=>""}
       end
@@ -37,7 +38,24 @@ describe ServicesController do
         post :create, :service => @attr
         response.should redirect_to(new_service_path)
       end
+    end
     
+    describe "success" do
+      before(:each) do
+        @attr = {:name => "test", :desc => "test"}
+      end
+      
+      it "should create a service" do
+        lambda do
+          post :create, :service => @attr
+        end.should change(Service, :count).by(1)
+      end
+            
+      it "should return to the service index page" do
+        post :create, :service => @attr
+        response.should redirect_to(services_path)
+      end    
+    end
   end
 end
 
