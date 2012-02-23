@@ -9,6 +9,7 @@ class ServicesController < ApplicationController
   end
   
   def new
+    @title = "New Service"
     @service = Service.new(params[:id])
   end
 
@@ -36,11 +37,17 @@ class ServicesController < ApplicationController
 
   def edit
     @service = Service.find(params[:id])
+    if !signed_in?
+      redirect_to sign_in_path
+    else
+      if !(@service.user_id == current_user.id)
+        redirect_to service_path
+      end
+    end
   end
-
+  
   def update
     puts params
-
     @service = Service.find(params[:id])
     #@service.user_id = current_user.id
     if @service.update_attributes(params[:service])

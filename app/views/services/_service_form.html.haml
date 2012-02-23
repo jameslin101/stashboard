@@ -1,0 +1,9 @@
+=form_for(@service) do |f|
+  %p 
+    = f.label :name, "Name" 
+    = f.text_field :name
+  %p
+    = f.label :desc, "Description"
+    = f.text_field :desc
+  %p
+    =yield

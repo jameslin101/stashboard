@@ -196,6 +196,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   database_cleaner
   fabrication
+  factory_girl
   factory_girl_rails
   ffaker
   fuubar

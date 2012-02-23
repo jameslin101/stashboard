@@ -1,0 +1,24 @@
+# Logfile created on 2012-02-22 19:12:19 -0500 by logger.rb/25413
+REQUESTING PAGE: GET /services/1/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET /services/1/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET /services/20/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/20/edit"}
+REQUESTING PAGE: GET /services/22/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/22/edit"}
+REQUESTING PAGE: GET /services/23/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/23/edit"}
+REQUESTING PAGE: GET /services/24/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/24/edit"}
+REQUESTING PAGE: GET /services/25/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/25/edit"}
+REQUESTING PAGE: GET /services/26/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/26/edit"}
+REQUESTING PAGE: GET /services/28/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/28/edit"}
+REQUESTING PAGE: GET /services/29/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/29/edit"}
+REQUESTING PAGE: GET /services/30/edit with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/services/30/edit"}
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET / with {} and HTTP headers {}

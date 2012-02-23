@@ -6,8 +6,6 @@
       -for i in 1..5
         -t[i] = t[i-1].yesterday
       %th Service
-      %th Edit
-      %th Delete
       %th Admin
       %th Current
       -for i in 1..5
@@ -17,13 +15,11 @@
     -Service.all.each do |s|
       %tr
         %td
-          =s.name
-        %td
+          =link_to s.name, service_path(s), :method => "get"
           -if signed_in? && (s.user_id == current_user.id)
-            =button_to "edit", service_path(s), :method => "get", :class => "btn btn-mini"
-        %td
+            =link_to "[edit]", edit_service_path(s)
           -if signed_in? && (s.user_id == current_user.id)
-            =link_to "delete", s, {:method => :delete, :confirm => "Are you sure?", :class => "btn-danger btn-mini"}
+            =link_to "[delete]", s, {:method => :delete, :confirm => "Are you sure?"}
         %td
           =User.find(s.user_id).email
         -q = s.statuses
