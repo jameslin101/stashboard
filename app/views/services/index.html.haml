@@ -1,4 +1,4 @@
-%table.table.table-striped.table-bordered.table-condensed.tablecenter
+%table.table.table-striped.table-bordered.table-condensed
   %thead
     %tr
       -t = Array.new
@@ -6,6 +6,7 @@
       -for i in 1..5
         -t[i] = t[i-1].yesterday
       %th Service
+      %th Actions
       %th Admin
       %th Current
       -for i in 1..5
@@ -15,22 +16,21 @@
     -Service.all.each do |s|
       %tr
         %td
-          =link_to s.name, service_path(s), :method => "get"
+          =s.name
+        %td
+          =link_to "[Statuses]", service_path(s), :method => "get"
           -if signed_in? && (s.user_id == current_user.id)
             =link_to "[edit]", edit_service_path(s)
-          -if signed_in? && (s.user_id == current_user.id)
             =link_to "[delete]", s, {:method => :delete, :confirm => "Are you sure?"}
         %td
           =User.find(s.user_id).email
         -q = s.statuses
         -if q.empty?
           -for i in 1..6
-            =puts "eeeeeeee " + i.to_s
             %td
               ="N/A"
         -if !q.empty?
           -f = q.last.time
-          =puts s.name + " aaaaaaa "+ f.to_s + " " + q.last.time.to_s
           -tt = Array.new
           -for i in [0,1,2,3,4,5]
             -querysym = q.where(:time => f..t[i].end_of_day).first
@@ -38,8 +38,7 @@
               -sym=querysym.state
             -else
               -sym="N/A"
-            =puts "********** " + sym + " " + t[i].to_s
-            %td
+            %td.tablecenter
               = render :partial => "symbols", :locals => {:sym => sym}
 .add
   -if signed_in?

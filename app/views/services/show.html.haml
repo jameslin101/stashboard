@@ -6,18 +6,22 @@
   %thead
     %tr
       %th Time
+      %th Actions
       %th Status
       %th Message
   -@service.statuses.each do |t|
     -sym = t.state
     %tr
       %td
-        =time_ago_in_words(t.time)    
-        =link_to "Edit", edit_service_status_path(@service,t)
-        =link_to "Delete", service_status_path(@service,t), :method => :delete, :confirm => "Are you sure?"
+        =time_ago_in_words(t.time) 
+      %td
+        -if signed_in? && (@service.user_id == current_user.id)   
+          =link_to "[Edit]", edit_service_status_path(@service,t)
+          =link_to "[Delete]", service_status_path(@service,t), :method => :delete, :confirm => "Are you sure?"
       %td
         = render :partial => "symbols", :locals => {:sym => sym}
       %td
         =t.message
 .add
-  =link_to "[Add status]", new_service_status_path(@service)    
+  -if signed_in? && (@service.user_id == current_user.id)   
+    =link_to "[Add status]", new_service_status_path(@service)    

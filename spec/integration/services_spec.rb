@@ -7,22 +7,19 @@ describe "test service requests" do
   end
 
   context "when logged out" do
-    it "should not be able to edit services", :js => true do
-      visit "/"
-      # visit edit_service_path(@service.id)
+    it "should not be able to edit services" do
+      visit edit_service_path(@service.id)
       current_path.should == sign_in_path
     end
   end
   
   context "when logged in" do
     before do
-      user = Factory(:user)
-      #service = Factory(:service, :user => user)
-      sign_in_as(user)
+      sign_in_as @user
     end
-    it "should be able to create a service" do
+    it "should be able to create a service"  do
       # From homepage, see post listing
-      visit root_path
+      visit services_path
       click_link "[Add service]"
 
       page.current_path.should == new_service_path

@@ -1,8 +1,7 @@
 class ServicesController < ApplicationController
 
-  #before_filter :authorize
-  
-  before_filter :is_admin?, only: [:update,:edit,:delete]
+  before_filter :authorize, only: [:new, :crete, :edit, :update, :delete]
+  before_filter :require_login, only: [:edit, :update, :delete]
 
   def index
     @title = "Services Home"
@@ -14,57 +13,45 @@ class ServicesController < ApplicationController
   end
 
   def show
-    @title = "Services Home"
+    @title = "List of Statuses"
     @service = Service.find(params[:id])
   end
   
   def create
-    puts params
-
     @service = Service.new(params[:service])
-    if signed_in?
-      @service.user_id = current_user.id
-    end
+    @service.user_id = current_user.id
     
     if @service.save
       flash[:notice] = "New service created."
       redirect_to services_path
     else
       flash[:error] = ap(@service.errors.full_messages)
-      redirect_to new_service_path
+      render :action => "new"
     end
   end
 
   def edit
+    @title = "Edit Service"
     @service = Service.find(params[:id])
-    if !signed_in?
-      redirect_to sign_in_path
-    else
-      if !(@service.user_id == current_user.id)
-        redirect_to service_path
-      end
-    end
   end
   
   def update
-    puts params
     @service = Service.find(params[:id])
-    #@service.user_id = current_user.id
     if @service.update_attributes(params[:service])
       flash[:notice] = @service.name + " service updated."
+      redirect_to services_path
     else
-      flash[:error] = "Error updating " + @service.name + " service."
+      flash[:error] = ap(@service.errors.full_messages)
+      render :action => "edit"
     end
-    redirect_to services_path
   end 
   
   def destroy 
     @service = Service.find(params[:id])
-    ap @service
-    if @service.destroy
-      flash[:notice] = "Service destoryed."
+    if destroyed_service = @service.destroy
+      flash[:notice] = destroyed_service.name.to_s + " service destroyed."
     else
-      flash[:error] = "Error destroying service."
+      flash[:error] = "Error destroying "+ @service.name + " service."
     end
     redirect_to services_path
   end
@@ -73,5 +60,12 @@ class ServicesController < ApplicationController
   def is_admin?
     service = Service.find(params[:id])
     service.user == current_user
+  end
+  
+  def require_login
+    unless is_admin?
+      flash[:error] = "You must be the admin user to access this section."
+      redirect_to services_path
+    end
   end
 end

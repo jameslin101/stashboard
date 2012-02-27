@@ -23,7 +23,6 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'webrat'
   gem 'shoulda'
   gem 'capybara'
   gem 'capybara-firebug'

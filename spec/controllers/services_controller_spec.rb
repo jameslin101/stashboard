@@ -22,27 +22,32 @@ describe ServicesController do
 
   
   describe "Post 'create'" do    
-
-    describe "failure" do
+    
+    describe "if signed out" do
+      it "should not create a service" do
+        lambda do
+          post :create, :service => @attr
+        end.should raise_error(RuntimeError)
+      end
+    end
+    
+    describe "if signed in" do
       before(:each) do
-        @attr = {:name => "", :desc=>""}
+        user = Factory(:user)
+        sign_in_as(user)
+        @emptyattr = {:name => "", :desc=>""}
+        @attr = {:name => "test", :desc => "test"}
       end
       
       it "should not create a service" do
         lambda do
-          post :create, :service => @attr
+          post :create, :service => @emptyattr
         end.should_not change(Service, :count)
       end
       
       it "should render the 'new' service page" do
-        post :create, :service => @attr
-        response.should redirect_to(new_service_path)
-      end
-    end
-    
-    describe "success" do
-      before(:each) do
-        @attr = {:name => "test", :desc => "test"}
+        post :create, :service => @emptyattr
+        response.should render_template("new")
       end
       
       it "should create a service" do

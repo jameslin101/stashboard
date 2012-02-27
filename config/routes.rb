@@ -1,5 +1,5 @@
 Stashboard::Application.routes.draw do
-  
+    
   resources :services do
     resources :statuses
   end
