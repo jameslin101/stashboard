@@ -14,7 +14,7 @@ class StatusesController < ApplicationController
     @status = Status.new(params[:status])
     @status.service_id = @service.id
     if @status.save
-      flash[:notice] = "New status created."
+      flash[:notice] = "New status " + @status.message + " created."
       redirect_to service_path(@service)
     else
       flash[:error] = ap(@status.errors.full_messages)
@@ -28,6 +28,7 @@ class StatusesController < ApplicationController
   end
   
   def edit
+    @title = "Edit Status"
     @service = Service.find(params[:service_id])
     @status = @service.statuses.find_by_id(params[:id])
   end  
@@ -50,7 +51,7 @@ class StatusesController < ApplicationController
     @service = Service.find(params[:service_id])
     @status = @service.statuses.find_by_id(params[:id])
     if @status.destroy
-      flash[:notice] = "Status destroyed."
+      flash[:notice] = @status.message + " status destroyed."
     else
       flash[:error] = "Error destroying status."
     end    

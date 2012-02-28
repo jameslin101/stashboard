@@ -22,7 +22,7 @@ class ServicesController < ApplicationController
     @service.user_id = current_user.id
     
     if @service.save
-      flash[:notice] = "New service created."
+      flash[:notice] = "New service " + @service.name + " created."
       redirect_to services_path
     else
       flash[:error] = ap(@service.errors.full_messages)
