@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe "test service requests" do
+  
   before(:each) do
-    @user = Factory(:user)
+    #@user = Factory(:user, :password => "password")
+    @user = User.create!(:email => "test@test.com", :password => "password")
     @service = Factory(:service, :user => @user)
   end
 
@@ -11,12 +13,31 @@ describe "test service requests" do
       visit edit_service_path(@service.id)
       current_path.should == sign_in_path
     end
-  end
-  
-  context "when logged in" do
-    before do
-      sign_in_as @user
+
+    it "should be able to log in" do
+      visit services_path
+      click_link "[Sign in]"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Password", with: "password"
+      click_button "Sign in"
+      sleep 3
+      current_path.should 
+      page.should have_content "test@test.com"
     end
+  end
+    
+  context "when logged in", :js => true do
+    before do
+      #sign_in_as @user
+      #post_via_redirect session_path, 'session[email]' => @user.email, 'session[password]' => @user.password
+      visit services_path
+      click_link "[Sign in]"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Password", with: "password"
+      click_button "Sign in"
+      sleep 3
+    end
+    
     it "should be able to create a service"  do
       # From homepage, see post listing
       visit services_path

@@ -10,6 +10,7 @@ gem 'haml-rails'
 gem 'clearance'
 gem 'awesome_print'
 gem 'twitter-bootstrap-rails'
+gem 'heroku'
 
 # Gems used only for assets and not required
 # in production environments by default.
