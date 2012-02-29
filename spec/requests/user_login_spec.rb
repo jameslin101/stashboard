@@ -9,7 +9,6 @@ describe "test logging in" do
   context "when logged out" do
 
     it "should be able to log in", :js=>true do
-      ap @user
       visit sign_in_path
       fill_in "Email", with: "test@test.com"
       fill_in "Password", with: "password"

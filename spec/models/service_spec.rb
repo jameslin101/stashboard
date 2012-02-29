@@ -15,7 +15,6 @@ describe Service do
   end
   
   it "should create a new instance given valid attributes" do
-    ap @user
     @user.services.create!(@attr)
   end
   

@@ -33,9 +33,7 @@ class StatusesController < ApplicationController
     @status = @service.statuses.find_by_id(params[:id])
   end  
 
-  def update
-    puts params
-    
+  def update    
     @service = Service.find(params[:service_id])
     @status = @service.statuses.find_by_id(params[:id])
     if @status.update_attributes(params[:status])
