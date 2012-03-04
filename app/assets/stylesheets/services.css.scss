@@ -1,3 +1,18 @@
 // Place all the styles related to the Services controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+th.mid, td.mid{
+  vertical-align:middle;
+}
+th.center, td.center {
+  form {
+    margin: 0px;
+    input {
+      margin: 0px;
+    }
+  }
+  
+  text-align:center;
+}

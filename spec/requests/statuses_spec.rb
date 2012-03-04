@@ -23,12 +23,12 @@ describe "test status requests" do
       msg = Faker::Lorem.sentence
       create_status(msg)
       visit services_path
-      click_link "[Statuses]"
-      click_link "[Edit]"
+      click_button "Statuses"
+      click_button "Edit"
 
       msg2 = Faker::Lorem.sentence
       fill_in "status_message", with: msg2     
-      click_on "Update Status"
+      click_button "Update Status"
       sleep 3
       confirm_string = msg2 + " status updated."
 
@@ -39,10 +39,10 @@ describe "test status requests" do
       msg = Faker::Lorem.sentence
       create_status(msg)
       visit services_path
-      click_link "[Statuses]"
+      click_button "Statuses"
       page.evaluate_script('window.confirm = function() { return true; }')
       #page.click('Remove')
-      click_link "[Delete]"
+      click_button "Delete"
       sleep 3
       confirm_string = msg + " status destroyed."
       page.should have_content confirm_string

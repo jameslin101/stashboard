@@ -22,7 +22,7 @@ describe "test service requests" do
       desc = Faker::Lorem.sentence
       create_service(name, desc)
       visit services_path
-      click_link "[edit]"
+      click_button "Edit"
 
       page.should have_content "Edit Service"
 
@@ -32,7 +32,7 @@ describe "test service requests" do
       fill_in "Name", with: name2
       fill_in "Description", with: desc2
   
-      click_on "Edit"
+      click_button "Edit"
   
       sleep 3
       confirm_string = name2 + " service updated."
@@ -48,7 +48,7 @@ describe "test service requests" do
       #override confirm popup
       page.evaluate_script('window.confirm = function() { return true; }')
 
-      click_link "[delete]"
+      click_button "Delete"
       sleep 3
       confirm_string = name + " service destroyed."
       page.should have_content confirm_string

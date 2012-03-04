@@ -5,29 +5,34 @@
       -t[0] = Time.current()
       -for i in 1..5
         -t[i] = t[i-1].yesterday
-      %th Service
-      %th Actions
+      %th Name
+      %th.center Statuses
+      %th.center Edit
+      %th.center Delete
       %th Admin
-      %th Current
+      %th.center Current
       -for i in 1..5
-        %th 
+        %th.center 
           =t[i].strftime("%b. %d")
   %tbody
     -Service.all.each do |s|
       %tr
-        %td
+        %td.mid
           =s.name
-        %td
-          =link_to "[Statuses]", service_path(s), :method => "get"
+        %td.center.mid
+          =button_to "Statuses", service_path(s), :method => "get", :class => "btn-primary"
+        %td.center.mid
           -if signed_in? && (s.user_id == current_user.id)
-            =link_to "[edit]", edit_service_path(s)
-            =link_to "[delete]", s, {:method => :delete, :confirm => "Are you sure?"}
-        %td
+            =button_to "Edit", edit_service_path(s), {:method => :get, :class => "btn-success"}
+        %td.center.mid
+          -if signed_in? && (s.user_id == current_user.id)
+            =button_to "Delete", s, {:method => :delete, :confirm => "Are you sure?", :class => "btn-danger"}
+        %td.mid
           =User.find(s.user_id).email
         -q = s.statuses
         -if q.empty?
           -for i in 1..6
-            %td
+            %td.center.mid
               ="N/A"
         -if !q.empty?
           -f = q.last.time
@@ -38,11 +43,12 @@
               -sym=querysym.state
             -else
               -sym="N/A"
-            %td.tablecenter
+            %td.center.mid
               = render :partial => "symbols", :locals => {:sym => sym}
-.add
-  -if signed_in?
-    =link_to "[Add service]", new_service_path
+
+-if signed_in?
+  .add
+    =button_to "Add service", new_service_path, :method => "get", :class => "btn-info"
 .row
   .span5
     .well.legend

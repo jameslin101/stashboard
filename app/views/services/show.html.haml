@@ -6,22 +6,27 @@
   %thead
     %tr
       %th Time
-      %th Actions
-      %th Status
+      %th.center Edit
+      %th.center Delete
+      %th.center Status
       %th Message
   -@service.statuses.each do |t|
     -sym = t.state
     %tr
-      %td
+      %td.mid
         =time_ago_in_words(t.time) 
-      %td
+      %td.center.mid
         -if signed_in? && (@service.user_id == current_user.id)   
-          =link_to "[Edit]", edit_service_status_path(@service,t)
-          =link_to "[Delete]", service_status_path(@service,t), :method => :delete, :confirm => "Are you sure?"
-      %td
+          =button_to "Edit", edit_service_status_path(@service,t), :class => "btn-success", :method => "get"
+      %td.center.mid
+        -if signed_in? && (@service.user_id == current_user.id)   
+          =button_to "Delete", service_status_path(@service,t), :method => :delete, :confirm => "Are you sure?", :class => "btn-danger"
+      %td.center.mid
         = render :partial => "symbols", :locals => {:sym => sym}
-      %td
+      %td.mid
         =t.message
-.add
-  -if signed_in? && (@service.user_id == current_user.id)   
-    =link_to "[Add status]", new_service_status_path(@service)    
+-if signed_in? && (@service.user_id == current_user.id)   
+  .add
+    =button_to "Add status", new_service_status_path(@service), :class => "btn-info", :method => "get"
+.back
+  =button_to "Back", services_path, :class => "btn-warning", :method => "get"

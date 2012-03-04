@@ -51,7 +51,7 @@ end
 def create_service(name,desc)
   # From homepage, see post listing
   visit services_path
-  click_link "[Add service]"
+  click_button "Add service"
 
   page.current_path.should == new_service_path
   page.should have_content "New Service"
@@ -59,17 +59,17 @@ def create_service(name,desc)
   fill_in "Name", with: name
   fill_in "Description", with: desc
 
-  click_on "Create"
+  click_button "Create"
   sleep 3
 end
 
 def create_status(msg)
   visit services_path
-  click_link "[Statuses]"
+  click_button "Statuses"
   page.find("title").should have_content "List of Statuses"
-  click_link "[Add status]"
+  click_button "Add status"
   choose('The service is up')
   fill_in "status_message", with: msg 
-  click_on "Create Status"     
+  click_button "Create Status"     
   sleep 3
 end
